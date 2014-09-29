@@ -2,7 +2,7 @@ Index: git/mempeek.c
 ===================================================================
 --- git.orig/mempeek.c
 +++ git/mempeek.c
-@@ -28,26 +28,171 @@
+@@ -28,26 +28,178 @@
  #include <linux/module.h>
  #include <linux/kernel.h>
  #include <linux/init.h>
@@ -32,15 +32,22 @@ Index: git/mempeek.c
 +/* Local */
 +
 +static struct proc_dir_entry *mp_proc_dir = NULL;
-+static uint32_t mp_phys = 0;
-+static void * mp_virt = 0;
++static void *mp_addr = 0;
 +static uint32_t mp_len = 1;
-+static struct resource *mp_res = 0;
 +
 +//*****************************************************************************
 +// Functions
 +//*****************************************************************************
 +
++//*****************************************************************************
++static int
++mp_memcpy( uint32_t *buf_, uint32_t *addr_, size_t len_ )
++{
++
++    return( 0 );
++}
++
++//*****************************************************************************
 +static int
 +mp_proc_show( struct seq_file *file, void *arg )
 +{
@@ -60,10 +67,11 @@ Index: git/mempeek.c
 +    memset( buf_p, 0xED, (sizeof(uint32_t) * mp_len) );
 +
 +    /* Read memory */
++    mp_memcpy( buf_p, mp_addr, mp_len );
 +
-+    seq_printf( file, "Read %d bytes from address %p\n", mp_len, (uint32_t *)mp_phys );
-+
-+    for( i = 0, p = (uint32_t *)mp_phys; i < mp_len; i++, p++ )
++    /* Print buffer */
++    seq_printf( file, "Read %d bytes from address %p\n", mp_len, mp_addr );
++    for( i = 0, p = (uint32_t *)mp_addr; i < mp_len; i++, p++ )
 +    {
 +        seq_printf( file, "%p: 0x%08X\n", p, buf_p[i] );
 +    } // end for
@@ -78,7 +86,7 @@ Index: git/mempeek.c
 +{
 +    return( single_open( file, mp_proc_show, NULL ) );
 +}
- 
++
 +//*****************************************************************************
 +static int
 +mp_proc_close( struct inode *inode, struct file *file )
@@ -108,7 +116,6 @@ Index: git/mempeek.c
 +    char addrstr[256+1] = { 0 };
 +    uint32_t l_addr = 0;
 +    uint32_t l_len = 1;
-+    struct resource *p;
 +
 +    cnt = (cnt >= 256) ? 256 : cnt;
 +
@@ -119,15 +126,15 @@ Index: git/mempeek.c
 +        return( -1 );
 +    } // end if
 +
-+    ret = sscanf( addrstr, "%x", &l_addr );
-+    if( ret != 1 )
++    ret = sscanf( addrstr, "%x:%x", &l_addr, &l_len );
++    if( ret < 1 || ret > 2 )
 +    {
 +        printk( KERN_ERR "Failed to parse address string: [%d] %s\n", ret, addrstr );
 +        printk( KERN_INFO "Address string '0xAAAAAAAA:0xLLLL'\n" );
 +        return( -1 );
 +    } // end else
-+
-+    mp_phys = l_addr;
+ 
++    mp_addr = (void *)l_addr;
 +    mp_len = l_len;
 +
 +    return( cnt );
