@@ -1,0 +1,15 @@
+Index: git/arch/arm/mach-omap2/timer.c
+===================================================================
+--- git.orig/arch/arm/mach-omap2/timer.c
++++ git/arch/arm/mach-omap2/timer.c
+@@ -310,9 +310,7 @@ static int __init omap_dm_timer_init_one
+ 	omap_hwmod_setup_one(oh_name);
+ 	omap_hwmod_enable(oh);
+ 	__omap_dm_timer_init_regs(timer);
+-
+-	if (posted)
+-		__omap_dm_timer_enable_posted(timer);
++	__omap_dm_timer_enable_posted(timer);
+ 
+ 	/* Check that the intended posted configuration matches the actual */
+ 	if (posted != timer->posted)
