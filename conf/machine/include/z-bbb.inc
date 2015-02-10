@@ -1,23 +1,18 @@
 #@TYPE: Machine
-#@NAME: Beaglebone machine
-#@DESCRIPTION: Machine configuration for http://beagleboard.org/bone and http://beagleboard.org/black boards
+#@NAME: ZenoTec Beaglebone Black custom machine
+#@DESCRIPTION: Machine configuration for the ZenoTec customized Beaglebone Black
 
-PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-XSERVER ?= "xserver-xorg \
-           xf86-input-evdev \
-           xf86-input-mouse \
-           xf86-video-fbdev \
-           xf86-input-keyboard"
 
 MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree"
+
+MACHINE_EXTRA_RDEPENDS += "i2c-tools"
 
 EXTRA_IMAGEDEPENDS += "u-boot"
 
 DEFAULTTUNE ?= "cortexa8hf-neon"
 include conf/machine/include/tune-cortexa8.inc
 
-IMAGE_FSTYPES += "tar.bz2 jffs2"
-EXTRA_IMAGECMD_jffs2 = "-lnp "
+IMAGE_FSTYPES += "tar.bz2"
 
 SERIAL_CONSOLE = "115200 ttyO0"
 

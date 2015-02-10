@@ -8,7 +8,7 @@ DEPENDS = "libzstack"
 
 PV = "0.1+git${SRCPV}"
 
-SRCREV = "e86513517e5fa782a0cec1584b730a54ae73e676"
+SRCREV = "20999a760fc0f07d5de5a4257779f1b2cdc465f0"
 SRC_URI = "\
     git://git@zenotec.mynetgear.com/srv/git/zing.git;protocol=ssh;branch=master \
 "

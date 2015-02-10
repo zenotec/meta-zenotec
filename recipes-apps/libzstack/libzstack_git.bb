@@ -8,7 +8,7 @@ DEPENDS = "boost"
 
 PV = "0.1+git${SRCPV}"
 
-SRCREV = "7cdb2266d3f9d9a5fc3c9bae09d7f1ea33bf68a9"
+SRCREV = "90954cdaf897d3576bea3d5915d3ac43f5bc859e"
 SRC_URI = "\
     git://git@zenotec.mynetgear.com/srv/git/zenoutils.git;protocol=ssh;branch=daisy \
 "

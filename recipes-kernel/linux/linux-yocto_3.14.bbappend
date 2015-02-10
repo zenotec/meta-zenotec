@@ -16,6 +16,7 @@ COMPATIBLE_MACHINE_z-qemu = "z-qemu"
 #
 SRC_URI_CFG = "\
     file://defconfig \
+    file://${MACHINE}.cfg \
 "
 ###############################################################################
 
@@ -24,8 +25,8 @@ SRC_URI_CFG = "\
 # Kernel Device Tree
 #
 SRC_URI_DTS = "\
-    file://am335x-zenotec.dtsi \
-    file://am335x-${MACHINE}.dts \
+    file://am335x-zt-common.dtsi \
+    file://am335x-boneblack.dts \
 "
 ###############################################################################
 
@@ -47,17 +48,15 @@ SRC_URI_append_z-bbb = "\
 "
 
 SRC_URI_append_z-qemu = "\
+    ${SRC_URI_CFG} \
 "
 
 do_copy_devicetree() {
-    cp ${WORKDIR}/am335x-zenotec.dtsi ${WORKDIR}/linux/arch/${ARCH}/boot/dts
-    cp ${WORKDIR}/am335x-${MACHINE}.dts ${WORKDIR}/linux/arch/${ARCH}/boot/dts
+    cp ${WORKDIR}/am335x-zt-common.dtsi ${WORKDIR}/linux/arch/${ARCH}/boot/dts
+    cp ${WORKDIR}/am335x-boneblack.dts ${WORKDIR}/linux/arch/${ARCH}/boot/dts
 }
 
 do_install_prepend_z-bbb() {
     do_copy_devicetree
-}
-
-do_install_prepend_z-qemu() {
 }
 

@@ -121,4 +121,23 @@ fi
 sed -e "s/##MACHINE##/$MACHINE/g" \
     -i conf/local.conf
 
+if [ -f "${_PWD_PREV}/meta-zenotec/scripts/deploy_sd.sh" ]
+then
+    ln -sf ${_PWD_PREV}/meta-zenotec/scripts/deploy_sd.sh deploy
+fi
+
+cat <<EOF
+
+cat <<EOF
+
+Configuration files have been created for the following configuration:
+
+ DISTRO: poky
+ MACHINE: $MACHINE
+
+EOF
+
+# Since this script is sourced, be careful not to pollute caller's environment with temp variables
+unset -f usage
+unset _BUILDDIR _CONFIGS_FOUND _PWD_PREV _VALID_MACHINES _BSP MACHINE
 
