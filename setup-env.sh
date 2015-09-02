@@ -6,6 +6,6 @@ if [ ${#} -ne 1 ]; then
 fi
 
 export MACHINE=${1}
-source ${0/.sh} 
+source ${0/.sh} build-${MACHINE}
 exit 0
 
