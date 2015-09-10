@@ -3,6 +3,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-3.14:${THISDIR}/${PN}-3.14/${MACHIN
 PR := "${PR}.1"
 
 # Add ZenoTec machines 
+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
 COMPATIBLE_MACHINE_z-bbb = "z-bbb"
 COMPATIBLE_MACHINE_z-qemu = "z-qemu"
 
@@ -15,36 +16,29 @@ COMPATIBLE_MACHINE_z-qemu = "z-qemu"
 # "machine".cfg: Machine specific kernel configuration
 #
 SRC_URI_CFG = "\
-    file://defconfig \
+    file://zenotec.cfg \
     file://${MACHINE}.cfg \
 "
 ###############################################################################
 
-###############################################################################
-#
-# Kernel Device Tree
-#
-SRC_URI_DTS = "\
-    file://am335x-zt-common.dtsi \
-    file://am335x-boneblack.dts \
-"
-###############################################################################
 
 ###############################################################################
-#
-# Kernel Patches (common)
-#
-SRC_URI_PATCHES = "\
-    file://0001-force-nonposted-mode.patch \
-"
+
+
 ###############################################################################
 
 # Make machine specific so we don't break stock beaglebone and other supported linux-yocto machines
 
+SRC_URI_append_beaglebone = "\
+    ${SRC_URI_CFG} \
+    file://0001-force-nonposted-mode.patch \
+"
+
 SRC_URI_append_z-bbb = "\
     ${SRC_URI_CFG} \
-    ${SRC_URI_DTS} \
-    ${SRC_URI_PATCHES} \
+    file://0001-force-nonposted-mode.patch \
+    file://am335x-bone-common.dtsi \
+    file://am335x-boneblack.dts \
 "
 
 SRC_URI_append_z-qemu = "\
@@ -52,7 +46,7 @@ SRC_URI_append_z-qemu = "\
 "
 
 do_copy_devicetree() {
-    cp ${WORKDIR}/am335x-zt-common.dtsi ${WORKDIR}/linux/arch/${ARCH}/boot/dts
+    cp ${WORKDIR}/am335x-bone-common.dtsi ${WORKDIR}/linux/arch/${ARCH}/boot/dts
     cp ${WORKDIR}/am335x-boneblack.dts ${WORKDIR}/linux/arch/${ARCH}/boot/dts
 }
 
