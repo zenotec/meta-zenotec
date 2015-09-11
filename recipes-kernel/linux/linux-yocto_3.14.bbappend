@@ -18,6 +18,7 @@ COMPATIBLE_MACHINE_z-qemu = "z-qemu"
 #
 SRC_URI_CFG = "\
     file://zenotec.cfg \
+    file://batman-adv.cfg \
     file://${MACHINE}.cfg \
 "
 ###############################################################################
