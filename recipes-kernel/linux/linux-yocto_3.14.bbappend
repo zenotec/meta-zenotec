@@ -4,6 +4,7 @@ PR := "${PR}.1"
 
 # Add ZenoTec machines 
 COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+COMPATIBLE_MACHINE_raspberrypi = "raspberrypi"
 COMPATIBLE_MACHINE_z-bbb = "z-bbb"
 COMPATIBLE_MACHINE_z-qemu = "z-qemu"
 
@@ -30,11 +31,14 @@ SRC_URI_CFG = "\
 # Make machine specific so we don't break stock beaglebone and other supported linux-yocto machines
 
 SRC_URI_append_beaglebone = "\
-    ${SRC_URI_CFG} \
     file://0001-force-nonposted-mode.patch \
 "
 
+SRC_URI_append_raspberrypi = "\
+"
+
 SRC_URI_append_z-bbb = "\
+    file://defconfig \
     ${SRC_URI_CFG} \
     file://0001-force-nonposted-mode.patch \
     file://am335x-bone-common.dtsi \
