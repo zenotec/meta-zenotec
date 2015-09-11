@@ -4,4 +4,5 @@ inherit core-image
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
 
+IMAGE_INSTALL_append = " lmsensors tcpdump wireless-tools "
 

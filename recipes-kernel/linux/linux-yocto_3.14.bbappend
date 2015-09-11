@@ -31,7 +31,10 @@ SRC_URI_CFG = "\
 # Make machine specific so we don't break stock beaglebone and other supported linux-yocto machines
 
 SRC_URI_append_beaglebone = "\
+    ${SRC_URI_CFG} \
     file://0001-force-nonposted-mode.patch \
+    file://am335x-bone-common.dtsi \
+    file://am335x-boneblack.dts \
 "
 
 SRC_URI_append_raspberrypi = "\
@@ -52,6 +55,10 @@ SRC_URI_append_z-qemu = "\
 do_copy_devicetree() {
     cp ${WORKDIR}/am335x-bone-common.dtsi ${WORKDIR}/linux/arch/${ARCH}/boot/dts
     cp ${WORKDIR}/am335x-boneblack.dts ${WORKDIR}/linux/arch/${ARCH}/boot/dts
+}
+
+do_install_prepend_beaglebone() {
+    do_copy_devicetree
 }
 
 do_install_prepend_z-bbb() {
