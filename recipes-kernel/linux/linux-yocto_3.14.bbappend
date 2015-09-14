@@ -18,6 +18,8 @@ COMPATIBLE_MACHINE_z-qemu = "z-qemu"
 #
 SRC_URI_CFG = "\
     file://zenotec.cfg \
+    file://sensors.cfg \
+    file://80211.cfg \
     file://batman-adv.cfg \
     file://${MACHINE}.cfg \
 "
@@ -39,6 +41,7 @@ SRC_URI_append_beaglebone = "\
 "
 
 SRC_URI_append_raspberrypi = "\
+    ${SRC_URI_CFG} \
 "
 
 SRC_URI_append_z-bbb = "\

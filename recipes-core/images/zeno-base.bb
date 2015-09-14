@@ -12,8 +12,10 @@ IMAGE_INSTALL_append = "\
     linux-firmware \
     i2c-tools \
     lmsensors-sensors \
+    ethtool \
     tcpdump \
     wireless-tools \
     bridge-utils \
+    batctl \
 "
 
