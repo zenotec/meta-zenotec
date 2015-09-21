@@ -25,7 +25,7 @@ do_install() {
     install -d ${D}/www/pages
     install -m 755 ${WORKDIR}/index.php ${D}/www/pages
 
-    install -d ${D}/${bindir}
+    install -d ${D}/${sbindir}
 
     install -m 755 ${WORKDIR}/open_door.sh.in ${D}/${sbindir}/open_door.sh
     sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/open_door.sh
@@ -41,7 +41,8 @@ do_install() {
 
 }
 
-RRECOMMENS_${PN} = "\
+RRECOMMENDS_${PN} = "\
+    lighttpd \
     lighttpd-module-fastcgi \
 "
 
