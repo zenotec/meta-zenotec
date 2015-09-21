@@ -11,10 +11,10 @@ DEPENDS = "init-ifupdown lighttpd"
 SRC_URI = "\
     file://interfaces \
     file://index.php \
-    file://open.sh.in \
-    file://close.sh.in \
-    file://is_open.sh.in \
-    file://is_closed.sh.in \
+    file://open_door.sh.in \
+    file://close_door.sh.in \
+    file://is_door_open.sh.in \
+    file://is_door_closed.sh.in \
 "
 
 do_install() {

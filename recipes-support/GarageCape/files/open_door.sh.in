@@ -21,7 +21,7 @@ if [ $(cat ${class_dir}/gpio${gpio_sens}/direction) != "in" ]; then
     echo in > ${class_dir}/gpio${gpio_sens}/direction
 fi
 
-@SBINDIR@/is_closed.sh > /dev/null
+@SBINDIR@/is_door_closed.sh > /dev/null
 ret=${?}
 if [ ${ret} -eq 0 ]; then
     echo 0 > ${class_dir}/gpio${gpio_ctrl}/value
@@ -31,7 +31,7 @@ if [ ${ret} -eq 0 ]; then
     echo 0 > ${class_dir}/gpio${gpio_ctrl}/value
 fi
 
-@SBINDIR@/is_open.sh > /dev/null
+@SBINDIR@/is_door_open.sh > /dev/null
 ret=${?}
 exit ${ret}
 
