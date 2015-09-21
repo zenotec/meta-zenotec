@@ -8,5 +8,6 @@ IMAGE_INSTALL_append = "\
     dhcp-client \
     lighttpd \
     php-cgi \
+    jquery \
     garagecape-config \
 "

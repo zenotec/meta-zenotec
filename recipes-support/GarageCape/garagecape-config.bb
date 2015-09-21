@@ -6,25 +6,39 @@ HOMEPAGE = "http://www.zenotec.net/GarageCape"
 
 LICENSE = "CLOSED"
 
-DEPENDS = "lighttpd"
+DEPENDS = "init-ifupdown lighttpd"
 
 SRC_URI = "\
-    file://open.sh \
-    file://close.sh \
-    file://is_open.sh \
-    file://is_closed.sh \
+    file://interfaces \
     file://index.php \
+    file://open.sh.in \
+    file://close.sh.in \
+    file://is_open.sh.in \
+    file://is_closed.sh.in \
 "
 
 do_install() {
-    install -d ${D}/${bindir}
-    install -m 755 ${WORKDIR}/open.sh ${D}/${bindir}
-    install -m 755 ${WORKDIR}/close.sh ${D}/${bindir}
-    install -m 755 ${WORKDIR}/is_open.sh ${D}/${bindir}
-    install -m 755 ${WORKDIR}/is_closed.sh ${D}/${bindir}
+
+    install -d ${D}${sysconfdir}/network
+    install -m 0644 ${WORKDIR}/interfaces ${D}${sysconfdir}/network/interfaces
 
     install -d ${D}/www/pages
     install -m 755 ${WORKDIR}/index.php ${D}/www/pages
+
+    install -d ${D}/${bindir}
+
+    install -m 755 ${WORKDIR}/open_door.sh.in ${D}/${sbindir}/open_door.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/open_door.sh
+
+    install -m 755 ${WORKDIR}/close.sh.in ${D}/${sbindir}
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/close_door.sh
+
+    install -m 755 ${WORKDIR}/is_door_open.sh.in ${D}/${sbindir}/is_door_open.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/is_door_open.sh
+
+    install -m 755 ${WORKDIR}/is_door_closed.sh.in ${D}/${sbindir}/is_door_close.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/is_door_close.sh
+
 }
 
 RRECOMMENS_${PN} = "\
@@ -32,9 +46,14 @@ RRECOMMENS_${PN} = "\
 "
 
 FILES_${PN} += "\
-    ${bindir}/open.sh \
-    ${bindir}/close.sh \
-    ${bindir}/is_open.sh \
-    ${bindir}/is_closed.sh \
+    ${sbindir}/open_door.sh \
+    ${sbindir}/close_door.sh \
+    ${sbindir}/is_door_open.sh \
+    ${sbindir}/is_door_closed.sh \
     /www/pages/index.php \
 "
+
+CONFFILES_${PN} = "\
+    ${sysconfdir}/network/interfaces \
+"
+
