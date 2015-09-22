@@ -8,8 +8,8 @@ jQuery has changed the way that millions of people write JavaScript."
 AUTHOR = "Kevin Mahoney <kevin.mahoney@zenotec.net>"
 HOMEPAGE = "https://jquery.com/"
 
-LICENSE = ""
-DEPENDS = ""
+LICENSE = "MIT"
+DEPENDS = "lighttpd"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}"
 

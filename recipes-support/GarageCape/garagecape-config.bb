@@ -6,7 +6,17 @@ HOMEPAGE = "http://www.zenotec.net/GarageCape"
 
 LICENSE = "CLOSED"
 
-DEPENDS = "init-ifupdown lighttpd"
+DEPENDS = "\
+    lmsensors-sensors \
+    init-ifupdown \
+    lighttpd \
+"
+
+RDEPENDS = "\
+    lmsensors-sensors \
+    init-ifupdown \
+    lighttpd \
+"
 
 SRC_URI = "\
     file://interfaces \
@@ -15,6 +25,7 @@ SRC_URI = "\
     file://close_door.sh.in \
     file://is_door_open.sh.in \
     file://is_door_closed.sh.in \
+    file://read_temp.sh.in \
 "
 
 do_install() {
@@ -30,14 +41,17 @@ do_install() {
     install -m 755 ${WORKDIR}/open_door.sh.in ${D}/${sbindir}/open_door.sh
     sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/open_door.sh
 
-    install -m 755 ${WORKDIR}/close.sh.in ${D}/${sbindir}
+    install -m 755 ${WORKDIR}/close_door.sh.in ${D}/${sbindir}/close_door.sh
     sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/close_door.sh
 
     install -m 755 ${WORKDIR}/is_door_open.sh.in ${D}/${sbindir}/is_door_open.sh
     sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/is_door_open.sh
 
-    install -m 755 ${WORKDIR}/is_door_closed.sh.in ${D}/${sbindir}/is_door_close.sh
-    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/is_door_close.sh
+    install -m 755 ${WORKDIR}/is_door_closed.sh.in ${D}/${sbindir}/is_door_closed.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/is_door_closed.sh
+
+    install -m 755 ${WORKDIR}/read_temp.sh.in ${D}/${sbindir}/read_temp.sh
+    sed -i -e 's,@BINDIR@,${bindir},g' ${D}/${sbindir}/read_temp.sh
 
 }
 
