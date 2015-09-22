@@ -7,12 +7,12 @@ HOMEPAGE = "http://www.zenotec.net/GarageCape"
 LICENSE = "CLOSED"
 
 DEPENDS = "\
-    lmsensors-sensors \
+    lmsensors \
     init-ifupdown \
     lighttpd \
 "
 
-RDEPENDS = "\
+RDEPENDS_${PN} = "\
     lmsensors-sensors \
     init-ifupdown \
     lighttpd \
