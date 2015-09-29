@@ -11,6 +11,7 @@ IMAGE_FEATURES += "\
 IMAGE_INSTALL_append = "\
     linux-firmware \
     i2c-tools \
+    iioutils \
     lmsensors-sensors \
     ethtool \
     tcpdump \

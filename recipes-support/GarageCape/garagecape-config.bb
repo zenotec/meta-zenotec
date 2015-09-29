@@ -19,7 +19,6 @@ RDEPENDS_${PN} = "\
 "
 
 SRC_URI = "\
-    file://interfaces \
     file://index.php \
     file://open_door.sh.in \
     file://close_door.sh.in \
@@ -29,9 +28,6 @@ SRC_URI = "\
 "
 
 do_install() {
-
-    install -d ${D}${sysconfdir}/network
-    install -m 0644 ${WORKDIR}/interfaces ${D}${sysconfdir}/network/interfaces
 
     install -d ${D}/www/pages
     install -m 755 ${WORKDIR}/index.php ${D}/www/pages
