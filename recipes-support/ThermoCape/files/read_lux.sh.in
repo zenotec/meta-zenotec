@@ -1,0 +1,13 @@
+#!/bin/sh
+
+DEV="/sys/bus/iio/devices/iio:device0"
+
+CH0=$(cat ${DEV}/in_intensity_both_raw)
+CH1=$(cat ${DEV}/in_intensity_ir_raw)
+
+LUX=$(cat ${DEV}/in_illuminance0_input)
+
+echo ${LUX}
+
+exit 0
+

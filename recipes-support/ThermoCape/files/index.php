@@ -1,6 +1,6 @@
 <html>
  <head>
-  <title>ZenHome Garage Cape</title>
+  <title>ZenHome Thermo Cape</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style type="text/css">
@@ -55,7 +55,7 @@
 
  </head>
  <body onload="init_doc()">
- <h1>ZenHome Garage Cape</h1>
+ <h1>ZenHome Thermo Cape</h1>
 
  <script type="text/javascript">
  function init_doc(){

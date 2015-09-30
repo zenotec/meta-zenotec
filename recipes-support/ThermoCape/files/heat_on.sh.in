@@ -1,0 +1,67 @@
+#!/bin/sh
+
+HEAT_1_EN_GPIO=2
+HEAT_2_EN_GPIO=49
+COOL_1_EN_GPIO=15
+COOL_2_EN_GPIO=14
+FAN_EN_GPIO=117
+HUM_EN_GPIO=115
+
+
+GPIO_CLASS_DIR="/sys/class/gpio"
+
+if [ ! -d "${GPIO_CLASS_DIR}/gpio${HEAT_1_EN_GPIO}" ]; then
+    echo ${HEAT_1_EN_GPIO} > ${GPIO_CLASS_DIR}/export
+fi
+if [ $(cat ${GPIO_CLASS_DIR}/gpio${HEAT_1_EN_GPIO}/direction) != "out" ]; then
+    echo "out" > ${GPIO_CLASS_DIR}/gpio${HEAT_1_EN_GPIO}/direction
+fi
+
+
+if [ ! -d "${GPIO_CLASS_DIR}/gpio${HEAT_2_EN_GPIO}" ]; then
+    echo ${HEAT_2_EN_GPIO} > ${GPIO_CLASS_DIR}/export
+fi
+if [ $(cat ${GPIO_CLASS_DIR}/gpio${HEAT_2_EN_GPIO}/direction) != "out" ]; then
+    echo "out" > ${GPIO_CLASS_DIR}/gpio${HEAT_2_EN_GPIO}/direction
+fi
+
+
+if [ ! -d "${GPIO_CLASS_DIR}/gpio${COOL_1_EN_GPIO}" ]; then
+    echo ${COOL_1_EN_GPIO} > ${GPIO_CLASS_DIR}/export
+fi
+if [ $(cat ${GPIO_CLASS_DIR}/gpio${COOL_1_EN_GPIO}/direction) != "out" ]; then
+    echo "out" > ${GPIO_CLASS_DIR}/gpio${COOL_1_EN_GPIO}/direction
+fi
+
+
+if [ ! -d "${GPIO_CLASS_DIR}/gpio${COOL_2_EN_GPIO}" ]; then
+    echo ${COOL_2_EN_GPIO} > ${GPIO_CLASS_DIR}/export
+fi
+if [ $(cat ${GPIO_CLASS_DIR}/gpio${COOL_2_EN_GPIO}/direction) != "out" ]; then
+    echo "out" > ${GPIO_CLASS_DIR}/gpio${COOL_2_EN_GPIO}/direction
+fi
+
+
+if [ ! -d "${GPIO_CLASS_DIR}/gpio${FAN_EN_GPIO}" ]; then
+    echo ${FAN_EN_GPIO} > ${GPIO_CLASS_DIR}/export
+fi
+if [ $(cat ${GPIO_CLASS_DIR}/gpio${FAN_EN_GPIO}/direction) != "out" ]; then
+    echo "out" > ${GPIO_CLASS_DIR}/gpio${FAN_EN_GPIO}/direction
+fi
+
+
+if [ ! -d "${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}" ]; then
+    echo ${HUM_EN_GPIO} > ${GPIO_CLASS_DIR}/export
+fi
+if [ $(cat ${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}/direction) != "out" ]; then
+    echo "out" > ${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}/direction
+fi
+
+echo 1 > ${GPIO_CLASS_DIR}/gpio${HEAT_1_EN_GPIO}/value
+echo 1 > ${GPIO_CLASS_DIR}/gpio${HEAT_2_EN_GPIO}/value
+echo 0 > ${GPIO_CLASS_DIR}/gpio${COOL_1_EN_GPIO}/value
+echo 0 > ${GPIO_CLASS_DIR}/gpio${COOL_2_EN_GPIO}/value
+echo 1 > ${GPIO_CLASS_DIR}/gpio${FAN_EN_GPIO}/value
+echo 0 > ${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}/value
+
+

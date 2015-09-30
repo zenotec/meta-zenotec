@@ -8,13 +8,11 @@ LICENSE = "CLOSED"
 
 DEPENDS = "\
     lmsensors \
-    init-ifupdown \
     lighttpd \
 "
 
 RDEPENDS_${PN} = "\
     lmsensors-sensors \
-    init-ifupdown \
     lighttpd \
 "
 
@@ -25,6 +23,7 @@ SRC_URI = "\
     file://is_door_open.sh.in \
     file://is_door_closed.sh.in \
     file://read_temp.sh.in \
+    file://read_lux.sh.in \
 "
 
 do_install() {
@@ -49,6 +48,9 @@ do_install() {
     install -m 755 ${WORKDIR}/read_temp.sh.in ${D}/${sbindir}/read_temp.sh
     sed -i -e 's,@BINDIR@,${bindir},g' ${D}/${sbindir}/read_temp.sh
 
+    install -m 755 ${WORKDIR}/read_lux.sh.in ${D}/${sbindir}/read_lux.sh
+    sed -i -e 's,@BINDIR@,${bindir},g' ${D}/${sbindir}/read_lux.sh
+
 }
 
 RRECOMMENDS_${PN} = "\
@@ -61,10 +63,8 @@ FILES_${PN} += "\
     ${sbindir}/close_door.sh \
     ${sbindir}/is_door_open.sh \
     ${sbindir}/is_door_closed.sh \
+    ${sbindir}/read_temp.sh \
+    ${sbindir}/read_lux.sh \
     /www/pages/index.php \
-"
-
-CONFFILES_${PN} = "\
-    ${sysconfdir}/network/interfaces \
 "
 
