@@ -18,8 +18,10 @@ RDEPENDS_${PN} = "\
 
 SRC_URI = "\
     file://index.php \
-    file://heat_on.sh.in \
-    file://cool_on.sh.in \
+    file://heat1_on.sh.in \
+    file://heat2_on.sh.in \
+    file://cool1_on.sh.in \
+    file://cool2_on.sh.in \
     file://hum_on.sh.in \
     file://all_off.sh.in \
     file://read_temp.sh.in \
@@ -33,11 +35,17 @@ do_install() {
 
     install -d ${D}/${sbindir}
 
-    install -m 755 ${WORKDIR}/heat_on.sh.in ${D}/${sbindir}/heat_on.sh
-    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/heat_on.sh
+    install -m 755 ${WORKDIR}/heat1_on.sh.in ${D}/${sbindir}/heat1_on.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/heat1_on.sh
 
-    install -m 755 ${WORKDIR}/cool_on.sh.in ${D}/${sbindir}/cool_on.sh
-    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/cool_on.sh
+    install -m 755 ${WORKDIR}/heat2_on.sh.in ${D}/${sbindir}/heat2_on.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/heat2_on.sh
+
+    install -m 755 ${WORKDIR}/cool1_on.sh.in ${D}/${sbindir}/cool1_on.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/cool1_on.sh
+
+    install -m 755 ${WORKDIR}/cool2_on.sh.in ${D}/${sbindir}/cool2_on.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/cool2_on.sh
 
     install -m 755 ${WORKDIR}/hum_on.sh.in ${D}/${sbindir}/hum_on.sh
     sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/hum_on.sh
@@ -59,8 +67,10 @@ RRECOMMENDS_${PN} = "\
 "
 
 FILES_${PN} += "\
-    ${sbindir}/heat_on.sh \
-    ${sbindir}/cool_on.sh \
+    ${sbindir}/heat1_on.sh \
+    ${sbindir}/heat2_on.sh \
+    ${sbindir}/cool1_on.sh \
+    ${sbindir}/cool2_on.sh \
     ${sbindir}/hum_on.sh \
     ${sbindir}/all_off.sh \
     ${sbindir}/read_temp.sh \

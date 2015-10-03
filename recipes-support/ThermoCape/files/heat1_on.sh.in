@@ -57,6 +57,11 @@ if [ $(cat ${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}/direction) != "out" ]; then
     echo "out" > ${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}/direction
 fi
 
-echo 1 > ${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}/value
+echo 1 > ${GPIO_CLASS_DIR}/gpio${HEAT_1_EN_GPIO}/value
+echo 0 > ${GPIO_CLASS_DIR}/gpio${HEAT_2_EN_GPIO}/value
+echo 0 > ${GPIO_CLASS_DIR}/gpio${COOL_1_EN_GPIO}/value
+echo 0 > ${GPIO_CLASS_DIR}/gpio${COOL_2_EN_GPIO}/value
+echo 1 > ${GPIO_CLASS_DIR}/gpio${FAN_EN_GPIO}/value
+echo 0 > ${GPIO_CLASS_DIR}/gpio${HUM_EN_GPIO}/value
 
 
