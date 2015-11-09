@@ -26,6 +26,7 @@ SRC_URI = "\
     file://all_off.sh.in \
     file://read_temp.sh.in \
     file://read_lux.sh.in \
+    file://connect_to_wifi.sh.in \
 "
 
 do_install() {
@@ -59,6 +60,9 @@ do_install() {
     install -m 755 ${WORKDIR}/read_lux.sh.in ${D}/${sbindir}/read_lux.sh
     sed -i -e 's,@BINDIR@,${bindir},g' ${D}/${sbindir}/read_lux.sh
 
+    install -m 755 ${WORKDIR}/connect_to_wifi.sh.in ${D}/${sbindir}/connect_to_wifi.sh
+    sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}/${sbindir}/connect_to_wifi.sh
+
 }
 
 RRECOMMENDS_${PN} = "\
@@ -75,6 +79,7 @@ FILES_${PN} += "\
     ${sbindir}/all_off.sh \
     ${sbindir}/read_temp.sh \
     ${sbindir}/read_lux.sh \
+    ${sbindir}/connect_to_wifi.sh \
     /www/pages/index.php \
 "
 

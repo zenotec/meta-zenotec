@@ -1,0 +1,51 @@
+#!/bin/sh
+
+usage="$(basename ${0}) HOSTNAME SSID PASSPHRASE"
+
+name=${1}
+ssid=${2}
+pass=${3}
+
+if [ ${#} -ne 3 ]; then
+  echo "Missing arguments!"
+  echo ${usage}
+  exit 1
+fi
+
+pidof hostapd > /dev/null
+ret=${?}
+
+if [ ${ret} -eq 0 ]; then
+  /etc/init.d/hostapd stop
+  sleep 1
+fi
+
+if [ -f /etc/rc5.d/S20hostapd ]; then
+  rm /etc/rc5.d/S20hostapd
+fi
+
+ifconfig wlan0 down
+iwconfig wlan0 mode managed
+ifconfig wlan0 up
+iwlist wlan0 scanning | grep "ESSID" | grep -q "\"${ssid}\""
+ret=${?}
+if [ ${ret} -ne 0 ]; then
+  echo "Invalid SSID"
+  exit 1
+fi
+
+cp /etc/hostname /etc/hostname.bak
+cp /etc/network/interfaces /etc/network/interfaces.bak
+cp /etc/wpa_supplicant.conf /etc/wpa_supplicant.conf.bak
+sync
+
+echo ${name} > /etc/hostname
+cp /etc/network/interfaces.wifi_client /etc/network/interfaces
+wpa_passphrase ${ssid} ${pass} > /etc/wpa_supplicant.conf
+
+
+/etc/init.d/networking restart
+sleep 1
+
+exit 0
+

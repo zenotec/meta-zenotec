@@ -80,6 +80,14 @@
      shell_exec( 'all_off.sh' );
    }
 
+   if ( isset ( $_POST['HOSTNAME'] ) && isset ( $_POST['SSID'] ) ) {
+     $cmd = "connect_to_wifi.sh ";
+     $cmd .= $_POST['HOSTNAME'] . " ";
+     $cmd .= $_POST['SSID'] . " ";
+     $cmd .= $_POST['passPhrase'];
+     shell_exec( $cmd );
+   }
+
   ?>
   }
   </script>
@@ -114,6 +122,14 @@
     <input type="submit" value="Cool-2" id="cool2Button" name="cool2Button">
     <input type="submit" value="Humidifier" id="humButton" name="humButton">
     <input type="submit" value="Off" id="offButton" name="offButton">
+  </form>
+
+  <p> Connect to Wifi Access Point </p>
+  <form action="index.php" method="POST">
+    Hostname:        <input type="text" value="" id="hostname" name="HOSTNAME"><br>
+    Wifi SSID:       <input type="text" value="" id="wifiSsid" name="SSID"><br>
+    Wifi Passphrase: <input type="password" value="" id="wifiPass" name="passPhrase"><br>
+    <input type="submit" value="Connect">
   </form>
 
  </body>

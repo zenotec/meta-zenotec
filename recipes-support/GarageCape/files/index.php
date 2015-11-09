@@ -61,6 +61,8 @@
  function init_doc(){
  <?php
 
+   print_r ($_POST);
+
    if ( isset ( $_GET['openButton'] ) ) {
      shell_exec( 'open_door.sh' );
    }
@@ -68,6 +70,14 @@
      if ( isset ( $_GET['closeButton'] ) ) {
        shell_exec( 'close_door.sh' );
      }
+   }
+
+   if ( isset ( $_POST['HOSTNAME'] ) && isset ( $_POST['SSID'] ) ) {
+     $cmd = "connect_to_wifi.sh ";
+     $cmd .= $_POST['HOSTNAME'] . " ";
+     $cmd .= $_POST['SSID'] . " ";
+     $cmd .= $_POST['passPhrase'];
+     shell_exec( $cmd );
    }
 
    $output = array();
@@ -116,6 +126,14 @@
   <form action="index.php" method="GET">
     <input type="submit" value="Open" id="openButton" name="openButton">
     <input type="submit" value="Close" id="closeButton" name="closeButton">
+  </form>
+
+  <p> Connect to Wifi Access Point </p>
+  <form action="index.php" method="POST">
+    Hostname:        <input type="text" value="" id="hostname" name="HOSTNAME"><br>
+    Wifi SSID:       <input type="text" value="" id="wifiSsid" name="SSID"><br>
+    Wifi Passphrase: <input type="password" value="" id="wifiPass" name="passPhrase"><br>
+    <input type="submit" value="Connect">
   </form>
 
  </body>
