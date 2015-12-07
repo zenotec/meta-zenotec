@@ -18,5 +18,6 @@ IMAGE_INSTALL_append = "\
     wireless-tools \
     bridge-utils \
     batctl \
+    curl \
 "
 
